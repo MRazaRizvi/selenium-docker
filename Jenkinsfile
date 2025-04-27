@@ -14,19 +14,30 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t your-image-name .'
+                sh 'docker build -t=vinsdocker/selenium .'
             }
         }
 
         stage('Push Docker Image') {
+            environment{
+                  DOCKER_HUB = credentials{'dockerhub-creds'}
+            }
+
             steps {
-                withCredentials([string(credentialsId: 'dockerhub-credentials', variable: 'DOCKER_PASSWORD')]) {
-                    sh '''
-                        echo "$DOCKER_PASSWORD" | docker login -u razadock --password-stdin
-                        docker push your-image-name
-                    '''
+                sh 'docker login -u %DOCKER_HUB_USR% -p %DOCKER_HUB_PSW%'
+                sh "docker push vinsdocker/selenium"
                 }
             }
         }
+
+
+        post {
+            always {
+                 sh "docker logout"
+            }
+           }
     }
-}
+
+
+
+
