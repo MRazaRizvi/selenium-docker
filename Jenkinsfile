@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'maven:3.8.6-openjdk-17'   // 👈 Pulls Maven + JDK preinstalled
+            image 'maven:3.8-openjdk-17'   // 👈 Pulls Maven + JDK preinstalled
         }
     }
 
