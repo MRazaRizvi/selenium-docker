@@ -20,7 +20,7 @@ pipeline {
 
         stage('Push Docker Image') {
             environment{
-                  DOCKER_HUB = credentials{'dockerhub-creds'}
+                  DOCKER_HUB = credentials('dockerhub-creds')
             }
 
             steps {
