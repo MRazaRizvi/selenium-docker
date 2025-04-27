@@ -4,19 +4,19 @@ pipeline {
     stages {
         stage('Build Jar') {
             steps {
-                bat "mvn clean package -DskipTests"
+                sh "mvn clean package -DskipTests"
             }
         }
 
         stage('Build Image') {
             steps {
-                bat "docker build -t=vinsdocker/selenium ."
+                sh "docker build -t=vinsdocker/selenium ."
             }
         }
 
         stage('Push Image') {
             steps {
-                bat "docker push vinsdocker/selenium"
+                sh "docker push vinsdocker/selenium"
             }
         }
     }
